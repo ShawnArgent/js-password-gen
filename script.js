@@ -9,25 +9,25 @@ var lowerCase = ("abcdefghijklmnopqrstuvwxyz");
 var special = ("!#$^%()*+,./:;<=>?@^_`{|}~");
 
 
-// Created function to ask user which options and made conditional statements to ensure minimum option requirements were met.
+// Created function to  user which options and made conditional statements to ensure minimum option requirements were met.
 function questions() {
   var isValid = false;
   do {
     var length = prompt("Choose password length between 8 and 128 characters");
-    var askNumbers = confirm("Do you want your password to include numbers?");
-    var askLowerCase = confirm("Do you want your password to include lower case letters?");
-    var askUpperCase = confirm("Do you want your password to include upper case letters?");
-    var askSpecial = confirm("Do you want your password to include special characters?");
+    var Numbers = confirm("Do you want your password to include numbers?");
+    var LowerCase = confirm("Do you want your password to include lower case letters?");
+    var UpperCase = confirm("Do you want your password to include upper case letters?");
+    var Special = confirm("Do you want your password to include special characters?");
     var responses = {
       length: length,
-      askNumbers: askNumbers,
-      askLowerCase: askLowerCase,
-      askUpperCase: askUpperCase,
-      askSpecial: askSpecial
+      Numbers: Numbers,
+      LowerCase: LowerCase,
+      UpperCase: UpperCase,
+      Special: Special
     } 
     if((length < 8)||(length > 128))
     alert("Choose number between 8 and 128");
-    else if((!askNumbers)&&(!askLowerCase)&&(!askUpperCase)&&(!askSpecial))
+    else if((!Numbers)&&(!LowerCase)&&(!UpperCase)&&(!Special))
     alert("Must choose at least one type.");
     else
     isValid = true;
@@ -41,19 +41,19 @@ function generatePassword() {
   var allPossible = [];
   var randomPassword = "";
 
-  if (passwordQuestions.askNumbers) {
+  if (passwordQuestions.Numbers) {
     for (var i of numbers)
       allPossible.push(i);
   }
-  if (passwordQuestions.askLowerCase) {
+  if (passwordQuestions.LowerCase) {
     for (var i of lowerCase)
       allPossible.push(i);
   }
-  if (passwordQuestions.askUpperCase) {
+  if (passwordQuestions.UpperCase) {
     for (var i of upperCase)
       allPossible.push(i);
   }
-  if (passwordQuestions.askSpecial) {
+  if (passwordQuestions.Special) {
     for (var i of special)
       allPossible.push(i);
   }
@@ -68,12 +68,16 @@ function generatePassword() {
   return randomPassword;
 }
 
+// Add event listener to generate button
+var copy = document.querySelector("#copy");
+generateBtn.addEventListener("click", copyrandomPassword);  {
+  copyrandomPassword();
+}
+
 // Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
+function copyrandomPassword() {
+  var randomPassword = generatePassword();
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
+  passwordText.value = randomPassword;
 }
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
