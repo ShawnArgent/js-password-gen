@@ -14,10 +14,10 @@ function questions() {
   var isValid = false;
   do {
     var length = prompt("Choose password length between 8 and 128 characters");
-    var Numbers = confirm("Do you want your password to include numbers?");
-    var LowerCase = confirm("Do you want your password to include lower case letters?");
-    var UpperCase = confirm("Do you want your password to include upper case letters?");
-    var Special = confirm("Do you want your password to include special characters?");
+    var Numbers = confirm("Include numbers?");
+    var LowerCase = confirm("Include lower case letters?");
+    var UpperCase = confirm("Include upper case letters?");
+    var Special = confirm("Include special characters?");
     var responses = {
       length: length,
       Numbers: Numbers,
