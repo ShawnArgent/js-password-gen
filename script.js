@@ -1,7 +1,72 @@
+// Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-// Special characters for the function created
-const specialChars = "!@#$%^&*()";
+
+//Arrays of Possible Character Choices
+var numbers = ("0123456789");
+var upperCase = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+var lowerCase = ("abcdefghijklmnopqrstuvwxyz");
+var special = ("!#$^%()*+,./:;<=>?@^_`{|}~");
+
+
+// Created function to ask user which options and made conditional statements to ensure minimum option requirements were met.
+function questions() {
+  var isValid = false;
+  do {
+    var length = prompt("Choose password length between 8 and 128 characters");
+    var askNumbers = confirm("Do you want your password to include numbers?");
+    var askLowerCase = confirm("Do you want your password to include lower case letters?");
+    var askUpperCase = confirm("Do you want your password to include upper case letters?");
+    var askSpecial = confirm("Do you want your password to include special characters?");
+    var responses = {
+      length: length,
+      askNumbers: askNumbers,
+      askLowerCase: askLowerCase,
+      askUpperCase: askUpperCase,
+      askSpecial: askSpecial
+    } 
+    if((length < 8)||(length > 128))
+    alert("Choose number between 8 and 128");
+    else if((!askNumbers)&&(!askLowerCase)&&(!askUpperCase)&&(!askSpecial))
+    alert("Must choose at least one type.");
+    else
+    isValid = true;
+
+  } while(!isValid);
+  return responses;
+}
+// This function joins all the user responses and then creates the result - a strong password.
+function generatePassword() {
+  var passwordQuestions = questions();
+  var allPossible = [];
+  var randomPassword = "";
+
+  if (passwordQuestions.askNumbers) {
+    for (var i of numbers)
+      allPossible.push(i);
+  }
+  if (passwordQuestions.askLowerCase) {
+    for (var i of lowerCase)
+      allPossible.push(i);
+  }
+  if (passwordQuestions.askUpperCase) {
+    for (var i of upperCase)
+      allPossible.push(i);
+  }
+  if (passwordQuestions.askSpecial) {
+    for (var i of special)
+      allPossible.push(i);
+  }
+
+  console.log(allPossible);
+
+  for (var i = 0; i < passwordQuestions.length; i++) {
+    randomPassword += allPossible[Math.floor(Math.random() * allPossible.length)];
+  }
+  console.log(randomPassword);
+
+  return randomPassword;
+}
 
 // Write password to the #password input
 function writePassword() {
@@ -9,54 +74,6 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-
 }
-
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-// Prompts that come up after you click generate password
-
-function generatePassword() {
-  var length = prompt("How many characters in your password? Must be at least 8.");
-  if(isNaN(length)){
-    alert("You must input a number!");
-    return generatePassword()
-  }
-  if(length<8 || length> 128){
-    alert("Please choose numbers between 8 - 128!");
-    return generatePassword()
-  }
-  var numbers = confirm("Include numbers?");
-
-  var lowerCase = confirm("Include upper case letters?");
-
-  var upperCase = confirm("Include lower case letters?");
-
-  var specialChars = confirm("Include special characters?");
-
-  if(!hasUpper&&!hasLower&&!hasNumbers&&!hasSpecial){
-    alert("You must at least choose 1 character type!");
-    return generatePassword()
-  }
-
-  if(hasupperCase){
-    specialChars += upperCase
-  }
-  if(haslowerCase){
-    specialChars += lowerCase
-  }
-
-  if(hasnumbers) {
-    specialChars += numbers
-  }
-
-  if(hasspecialChars) {
-    specialChars += specialChars
-  }
-
-for (var i = 0; i < length; i++) {
-  password += specialChars[Math.floor(Math.random() * specialChars.length)];
-}
-return password;
-}
