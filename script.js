@@ -78,6 +78,6 @@ generateBtn.addEventListener("click", copyrandomPassword);  {
 function copyrandomPassword() {
   var randomPassword = generatePassword();
   var passwordText = document.querySelector("#password");
-
+  
   passwordText.value = randomPassword;
 }
